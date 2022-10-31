@@ -7,7 +7,8 @@
 
 #include <qopenglwidget.h>
 #include <qopenglfunctions.h>
-class Canvas : public QOpenGLWidget, protected QOpenGLFunctions
+#include <qopenglextrafunctions.h>
+class Canvas : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
     Q_OBJECT
 public:
@@ -17,6 +18,8 @@ public:
 
 private:
     GLuint createShader(GLenum type, const GLchar *source);
+    void initVao();
+    void initShader();
     GLuint _program;
     GLuint _vao;
 };
