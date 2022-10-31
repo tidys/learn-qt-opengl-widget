@@ -8,6 +8,37 @@ Canvas::Canvas(QWidget *parent)
 }
 void Canvas::paintGL()
 {
+  glClearColor(1.0, 0, 0, 1.0);
+  glUseProgram(this->_program);
+
+  GLfloat vertices[] = {
+      -0.5f,
+      -0.5f,
+      0.0f,
+
+      0.5f,
+      -0.5f,
+      0.0f,
+
+      0.0f,
+      0.5f,
+      0.0f,
+  };
+  //    glViewport(0, 0, 300, 300);
+
+  GLuint vbo;
+  glGenBuffers(1, &vbo);
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+  // sizeof(vertices) = 36
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+  GLint position = glGetAttribLocation(this->_program, "position");
+  glEnableVertexAttribArray(position);
+  glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  //    glBindVertexArray(0); // 这个函数无效，不知道为啥
+
+  glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 const GLchar *verticesShaderSource = R"(
 attribute vec3 position;
@@ -26,7 +57,6 @@ void Canvas::initializeGL()
 {
 
   this->initializeOpenGLFunctions();
-  glClearColor(1.0, 0, 0, 1.0);
 
   // 准备shader
   GLuint vert = this->createShader(GL_VERTEX_SHADER, verticesShaderSource);
@@ -43,36 +73,13 @@ void Canvas::initializeGL()
     glGetProgramInfoLog(program, 512, nullptr, infoLog);
     std::cout << "error： program link failed: " << infoLog << std::endl;
   }
-  glUseProgram(program);
+  this->_program = program;
+
   // link之后就不需要了
   glDeleteShader(vert);
   glDeleteShader(frag);
 
-  GLfloat vertices[] = {
-      -0.5f,
-      -0.5f,
-      0.0f,
-
-      0.5f,
-      -0.5f,
-      0.0f,
-
-      0.0f,
-      0.5f,
-      0.0f,
-  };
-
-  GLuint vbo;
-  glGenBuffers(1, &vbo);
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  // sizeof(vertices) = 36
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-  GLint position = glGetAttribLocation(program, "position");
-  glEnableVertexAttribArray(position);
-  glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
-
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  //   glGenVertexArrays(1, &this->_vao);
 }
 GLuint Canvas::createShader(GLenum type, const GLchar *source)
 {
