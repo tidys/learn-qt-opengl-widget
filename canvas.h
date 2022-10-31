@@ -9,6 +9,8 @@ public:
     Canvas(QWidget* parent);
     void paintGL() override;
     void initializeGL() override;
+private:
+    GLuint createShader(GLenum type,const GLchar* source);
 };
 
 #endif // CANVAS_H

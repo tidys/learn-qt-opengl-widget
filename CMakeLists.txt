@@ -21,6 +21,7 @@ set(PROJECT_SOURCES
         canvas.cpp
         canvas.h
 )
+source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${PROJECT_SOURCES})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(opengl
