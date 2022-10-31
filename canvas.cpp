@@ -4,6 +4,7 @@
 using namespace std;
 
 const GLchar *verticesShaderSource = R"(
+
 attribute vec3 position;
 void main(){
     gl_Position = vec4(position.x, position.y, position.z, 1.0);
@@ -11,6 +12,7 @@ void main(){
 )";
 
 const GLchar *fragmentShaderSource = R"(
+
 void main(){
     gl_FragColor=vec4(1.0,1.0,0.0,1.0);
 }
