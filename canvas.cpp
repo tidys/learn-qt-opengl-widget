@@ -8,7 +8,6 @@ Canvas::Canvas(QWidget *parent)
 }
 void Canvas::paintGL()
 {
-    
 }
 const GLchar *verticesShaderSource = R"(
 attribute vec3 position;
@@ -69,12 +68,11 @@ void Canvas::initializeGL()
   // sizeof(vertices) = 36
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-  GLint position=  glGetAttribLocation(program, "position");
+  GLint position = glGetAttribLocation(program, "position");
   glEnableVertexAttribArray(position);
-  glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-    
+  glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+
   glDrawArrays(GL_TRIANGLES, 0, 3);
-    
 }
 GLuint Canvas::createShader(GLenum type, const GLchar *source)
 {
@@ -87,7 +85,7 @@ GLuint Canvas::createShader(GLenum type, const GLchar *source)
   {
     GLchar infoLog[512];
     glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-    std::cout << "error： shader compilation failed: " << infoLog << source<< std::endl;
+    std::cout << "error： shader compilation failed: " << infoLog << source << std::endl;
   }
   return vertexShader;
 }

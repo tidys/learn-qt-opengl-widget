@@ -3,14 +3,15 @@
 
 #include <qopenglwidget.h>
 #include <qopenglfunctions.h>
-class Canvas:public QOpenGLWidget,protected QOpenGLFunctions
+class Canvas : public QOpenGLWidget, protected QOpenGLFunctions
 {
 public:
-    Canvas(QWidget* parent);
+    Canvas(QWidget *parent);
     void paintGL() override;
     void initializeGL() override;
+
 private:
-    GLuint createShader(GLenum type,const GLchar* source);
+    GLuint createShader(GLenum type, const GLchar *source);
 };
 
 #endif // CANVAS_H
