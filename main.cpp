@@ -5,10 +5,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    QSurfaceFormat fmt;
-//    fmt.setVersion(3, 1);
-//    fmt.setProfile(QSurfaceFormat::CoreProfile);
-//    QSurfaceFormat::setDefaultFormat(fmt);
+    QSurfaceFormat fmt;
+    fmt.setVersion(2, 1);
+    //    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+    QSurfaceFormat::setDefaultFormat(fmt);
+
     MainWindow w;
     w.show();
     return a.exec();

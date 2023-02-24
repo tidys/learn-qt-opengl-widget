@@ -14,12 +14,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+set(QRC_SOURCE_FILES ${CMAKE_CURRENT_LIST_DIR}/wall.jpeg)
+qt5_add_resources(${QRC_SOURCE_FILES})
+message("-----" ${QRC_SOURCE_FILES})
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         canvas.cpp
         canvas.h
+        ${QRC_SOURCE_FILES}
 )
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${PROJECT_SOURCES})
 
