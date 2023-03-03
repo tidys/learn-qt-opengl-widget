@@ -136,6 +136,7 @@ void Canvas::initializeGL()
 
   this->initShader();
   this->initVao();
+  this->paintGL();
 }
 GLuint Canvas::createShader(GLenum type, const GLchar *source)
 {

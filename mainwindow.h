@@ -10,5 +10,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void dragEnterEvent(QDragEnterEvent* event)override;
+    void dropEvent(QDropEvent* e);
 };
 #endif // MAINWINDOW_H
